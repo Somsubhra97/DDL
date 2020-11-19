@@ -4,14 +4,14 @@ import { Subject } from "rxjs";
 import { map } from "rxjs/operators";
 import { Router } from "@angular/router";
 
-import { Data,Post } from "./post.model";
+import { Post } from "./post.model";
 
 @Injectable({ providedIn: "root" })
 export class PostsService {
 
   private posts: Post[] = [];  
   private isLoading=true;
-  private postsUpdated = new Subject<Data>();
+  private postsUpdated = new Subject<Posts>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -23,29 +23,25 @@ export class PostsService {
     this.http
       .get("http://localhost:5000/api/posts")
        .subscribe(x => {
-        this.posts=x.data;
-        this.isLoading=false;
+        this.posts=x.data;       
 
-        const receiver:Data={ 
-          info:this.posts,
-          isLoading:false
+        const receiver:Post={ 
+          info:this.posts          
         }
         this.postsUpdated.next(receiver);
       });
   }
 
   addForm(Name: string, Address: string, Email: string, City:string, State:string) {
-    this.isLoading=true;
     const post: Post = { Name,Email,City,Address,State };
     this.http
       .post(
         "https://localhost:5001/api/posts", post)
       .subscribe(res => {        
-        this.posts.push(res.data);
+        this.posts.push(res.Post);
 
-        const receiver:Data={ 
-          info:this.posts,
-          isLoading:false
+        const receiver:Post={ 
+          info:this.posts          
         }
         this.postsUpdated.next(receiver);        
         this.router.navigate(["/"]);
