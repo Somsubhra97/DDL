@@ -1,0 +1,57 @@
+<mat-card>
+  <form (submit)="onSavePost(postForm)" #postForm="ngForm" >
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        name="Name"        
+        required
+        minlength="3"
+        placeholder="Post Title"
+        #title="ngModel">
+      <mat-error *ngIf="title.invalid">Please enter a Name.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea
+        matInput
+        rows="1"
+        name="Designation"        
+        required
+        placeholder="Post Content"
+        #content="ngModel"></textarea>
+      <mat-error *ngIf="content.invalid">Please enter a Designation.</mat-error>
+    </mat-form-field>
+    
+      <mat-form-field>
+      <textarea
+        matInput
+        rows="1"
+        name="Email"        
+        required
+        placeholder="Post Content"
+        #content="ngModel"></textarea>
+      <mat-error *ngIf="content.invalid">Please enter a Email.</mat-error>
+    </mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Select State</mat-label>
+  <mat-select name="State" (change)>
+    <option *ngFor="let state of states" [ngValue]="state" (change)="changeCity($event)">{{city}}
+      </option>
+  </mat-select>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+  <mat-label>Select City</mat-label>
+  <mat-select name="State" name="City">
+    <option *ngFor="let city of Cities" [ngValue]="city">{{city}}
+      </option>
+  </mat-select>
+</mat-form-field>
+
+    <button
+      mat-raised-button
+      color="accent"
+      type="submit">Save</button>
+  </form>
+</mat-card>
