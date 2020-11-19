@@ -9,7 +9,7 @@ export class StateCityService {
   private states: State[] = []; 
   private cities: City[] = [];    
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
   getStates() {
     this.http
